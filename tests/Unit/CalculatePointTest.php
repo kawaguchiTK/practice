@@ -18,29 +18,23 @@ class CalculatePointTest extends TestCase
     }
     /**
      * @test
+     * @dataProvider  dataProvider_for_calcPoint
      */
-    public function calcPoint_0()
+    public function calcPoint(int $expected , int $amount)
     {
-        $result = CalculatePointService::calcPoint(0);
-        $this->assertSame(0,$result);
+        $result = CalculatePointService::calcPoint($amount);
+        $this->assertSame($expected,$result);
     }
 
-    /**
-     * @test
-     */
-    public function calcPoint_10()
+    public function dataProvider_for_calcPoint(): array
     {
-        $result = CalculatePointService::calcPoint(1000);
-        $this->assertSame(10, $result);
+        return [
+            '購入金額が0' => [0,0],
+            '購入金額が999' => [0,999],
+            '購入金額が1000' => [10,1000],
+            '購入金額が10000' => [200,10000]
+        ];
     }
 
-    /**
-     * @test
-     */
-    public function calcPoint_200()
-    {
-        $result = CalculatePointService::calcPoint(10000);
-        $this->assertSame(200, $result);
-    }
 
 }
